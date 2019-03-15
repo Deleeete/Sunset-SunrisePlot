@@ -1,4 +1,7 @@
 string = Map[DateString, Sunset /@ DateRange["2018/1/1", Today]];
 trim = StringCases[string, RegularExpression@"[0-2][0-9]:[0-9][0-9]"] // Flatten;
-data = ToExpression /@ StringReplace[trim, ":" -> "*60+"];
+data = ToExpression /@ StringReplace[trim, ":" -> "*60+"];  
+    *if uses the strings to plot directly, the curve will not be smooth because of the hexadecimal*
+    *here is a trick that injects operators to strings by string operation functions, then use ToExpression to evaluate them*
+    *without this trick, map the minute and hour to a decimal number will be cumbersome*
 ListPlot[data]
